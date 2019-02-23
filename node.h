@@ -1,3 +1,10 @@
+/*
+ * Author: Jack Hou
+ * Project: Stack n Que
+ * Purpose: Node class and its processing functions
+ * Notes:
+ */
+
 #ifndef NODE_H
 #define NODE_H
 
@@ -63,6 +70,8 @@ node<T>* copy_list(const node<T>* head, node<T>* & cpy)
         init_head(cpy);
         return 0;
     }
+
+
 
     node<T>* last;
     recurs_cpy(head,cpy,last);
@@ -207,6 +216,7 @@ node<T>* insert_head(node<T>* &head, T item)
      */
     node<T>* temp_ptr = new node<T>(item, head);
     head = temp_ptr;
+
     return head;
 }
 

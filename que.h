@@ -1,3 +1,10 @@
+/*
+ * Author: Jack Hou
+ * Project: Stack n Que
+ * Purpose: Queue class
+ * Notes:
+ */
+
 #ifndef QUE_H
 #define QUE_H
 #include <node.h>
@@ -89,6 +96,7 @@ bool Que<T>::empty()
 template <class T>
 T Que<T>::front()
 {
+    assert(_head);
     return _head->_item;
 }
 

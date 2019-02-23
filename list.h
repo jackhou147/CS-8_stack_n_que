@@ -1,3 +1,10 @@
+/*
+ * Author: Jack Hou
+ * Project: Stack n Que
+ * Purpose: List class
+ * Notes:
+ */
+
 #ifndef LIST_H
 #define LIST_H
 

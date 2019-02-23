@@ -1,3 +1,10 @@
+/*
+ * Author: Jack Hou
+ * Project: Stack n Que
+ * Purpose: Stack class
+ * Notes:
+ */
+
 #ifndef STACK_H
 #define STACK_H
 #include <list.h>
