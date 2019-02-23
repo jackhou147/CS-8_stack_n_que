@@ -3,24 +3,32 @@
 
 #include <iostream>
 using namespace std;
+
 template <class T>
 struct node{
-    //variables...
-    T _item;
-    node<T>* _next;
 
-
-    //methods...
+    //---constructors
     node(const T& item = T(), node<T>* next = NULL):_item(item), _next(next){}
+
+    //---operators
     node<T>& operator =(const node<T>& other){
         delete_all(_next);
         _item = other._item;
         return *this;
     }
     friend ostream& operator << (ostream& outs, const node<T>& print_me){
-        outs<<"["<<print_me._item<<"]->";
+        //print this when the list is not empty
+        if(!empty(&print_me))
+            outs<<"["<<print_me._item<<"]->";
+        //print this when list is empty
+        else
+            outs << "|||";
         return outs;
     }
+
+    //---attributes
+    T _item;
+    node<T>* _next;
 };
 
 template <class T>
@@ -41,33 +49,38 @@ node<T>* recurs_cpy(const node<T>* head, node<T>* & cpy, node<T>*& last)
     return cpy;
 }
 
-
-//makes a copy of the list, returns a pointer to the last node:
 template <class T>
 node<T>* copy_list(const node<T>* head, node<T>* & cpy)
 {
-    //wrapper function for recurs_cpy()
-    if(!head) return 0;
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: makes a copy of the list, returns a pointer to the last node:
+     * Note:! if given an empty(null) head, cpy is initialized to null.
+     */
+
+    if(!head) {
+        init_head(cpy);
+        return 0;
+    }
+
     node<T>* last;
     recurs_cpy(head,cpy,last);
     return last;
 }
 
-// 1 2 3 4 5
-
-
-
-
-
-
-
-
-
-
-
-
 template<class T>
-node<T>* search(node<T>* headPtr, T _item){
+node<T>* search(node<T>* headPtr, T _item)
+{
+    /*
+     * Pre-condition: headPtr != 0
+     * Post-condition: node is returned if it's found;
+     *                  otherwise, NULL is returned
+     * Purpose: search for node with the given item
+     */
+
+    assert(headPtr);
+
     node<T>* current = headPtr;
     while(current)
     {
@@ -80,6 +93,13 @@ node<T>* search(node<T>* headPtr, T _item){
 template<class T>
 int size(node<T>* headPtr)
 {
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: return size of the list
+     */
+
+
     int counter = 0;
     node<T>* current = headPtr;
     while(current)
@@ -93,65 +113,61 @@ int size(node<T>* headPtr)
 
 
 
-
-
-
 //==========50% TESTED=============
 
-//makes a copy of the list, returns a pointer to the last node:
-//template <class T>
-//node<T>* copy_list(const node<T>* head, node<T>* & cpy)
-//{
-//    //node ptr current = head, last = current, cpy = new node(current)
-//    cpy = new node<T>(head->_item);
-//    node<T>* last = cpy;
-//    node<T>* current = head->_next;
-//    //iterate thru the list,
-//    while(current)
-//    {
-//        //for each node,
-//            //copy it and insert the copied node into the end of copied list
-//        last = insert_after(cpy, last, current->_item);
-//        current = current->_next;
-//    }
-//    //return the last node
-//    return last;
-//}
-
-//initializes head to NULL
 template <class T>
 node<T>* init_head(node<T>* &head)
 {
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: initializes head to NULL
+     */
     head = NULL;
     return head;
 }
 
 
-//true if head is NULL, false otherwise.
+
 template <class T>
 bool empty(const node<T>* head)
 {
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: true if head is NULL, false otherwise.
+     */
     return !head;
 }
 
-//deletes all the nodes in the list
 template<class T>
 void delete_all(node<T>*&head)
 {
-
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: deletes all the nodes in the list
+     */
     while(head)
     {
-        cout << "head is not null" << endl;
+//        cout << "head is not null" << endl;
         node<T>* temp = head->_next;
         delete_head(head);
         head = temp;
     }
 }
 
-//delete the node at the head of the list, return the item:
 template <class T>
 T delete_head(node<T>* &head)
 {
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: delete the node at the head of the list, return the item
+     */
+
+    assert(head);
+
     T item = head->_item;
     node<T>* temp_ptr = head;
     head = head->_next;
@@ -160,10 +176,15 @@ T delete_head(node<T>* &head)
 }
 
 
-//insert_after: if after is NULL, inserts at head
 template <class T>
 node<T>* insert_after(node<T>* &head, node<T>* after, const T& item)
 {
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: insert_after: if after is NULL, inserts at head
+     */
+
     T it = item;
     //if after is not null
     if(after)
@@ -176,21 +197,34 @@ node<T>* insert_after(node<T>* &head, node<T>* after, const T& item)
     return insert_head(head,it);
 }
 
-//insert at the beginning of the list:
 template <class T>
 node<T>* insert_head(node<T>* &head, T item)
 {
-    cout << "insert head fired" << endl;
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: insert at the beginning of the list:
+     */
     node<T>* temp_ptr = new node<T>(item, head);
     head = temp_ptr;
     return head;
 }
 
-//print the list and return outs
 template<class T>
 ostream& print_list(const node<T>* head, ostream& outs=cout)
 {
-    if(empty(head)) return outs;
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: print the list and return outs
+     */
+    if(empty(head))
+    {
+        outs << *head;
+        return outs;
+    }
+
+
     node<T>* temp_ptr = new node<T>(head->_item,head->_next);
     //while the list not empty, keep printing
     while(!empty(temp_ptr))
@@ -198,6 +232,9 @@ ostream& print_list(const node<T>* head, ostream& outs=cout)
         outs << *temp_ptr;
         temp_ptr = temp_ptr->_next;
     }
+    outs << *temp_ptr;
+
+
     return outs;
 }
 

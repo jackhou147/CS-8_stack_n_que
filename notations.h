@@ -21,5 +21,23 @@
  * Purpose:
  */
 
+//-----PASTE THE FOLLOWING AS NEEDED
+//=========
+//=========IMPLEMENTATION===========
+//                       ===========
+
+//-----OPERATORS
+
+//-----METHODS
+
+//-----CONSTRUCTORS
+
+/*
+ * Author: Jack Hou
+ * Project:
+ * Purpose:
+ * Notes:
+ */
+
 
 #endif // NOTATIONS_H

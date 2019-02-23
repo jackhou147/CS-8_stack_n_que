@@ -10,4 +10,6 @@ HEADERS += \
     que.h \
     list.h \
     stack.h \
-    notations.h
+    notations.h \
+    z_work_report.h \
+    z_output.h

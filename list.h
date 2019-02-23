@@ -8,23 +8,16 @@ class List
 {
 public:
     //---constructors
-    List(){init_head(headPtr);}
+    List();
     List(T _item):headPtr(new node<T>(_item)){}
-    ~List()
-    {
-        cout << "List destructor fired" << endl;
-        delete_all(headPtr);
-        cout << "List destructor finished" << endl;
-    }
-    List(const List<T>& other) {
-        copy_list(other.headPtr, headPtr);
-    }
+    ~List();
+    List(const List<T>& other);
 
     //---operators
-    List<T>& operator =(const List<T>& other) {
+    List<T>& operator =(const List<T>& other)
+    {
         delete_all(headPtr);
         copy_list(other.headPtr, headPtr);
-
         return *this;
     }
 
@@ -34,29 +27,18 @@ public:
     }
 
     //---methods
-    void insert(T _item){
-        insert_head(headPtr, _item);
-    }               //insert at head
+    void insert(T _item);
 
-    void insert(node<T>*_node ,T _item)
-    {
-        insert_after(headPtr, _node, _item);
-    }//insert after given node
+    void insert(node<T>*_node ,T _item);
 
-    //-----!!!-------
-    T remove()
-    {   //remove the head and return the ITEM
-        return delete_head(headPtr);
-    }
+    T remove();
 
-    node<T>* find(T _item){
-        return search(headPtr,_item);
-    }             //find item(first occurance)
+    node<T>* find(T _item);
 
-    int count(){return size(headPtr);}  //list size
+    int count();
 
 
-    //---
+    //---public iterator
     class listIterator
     {
     public:
@@ -68,22 +50,27 @@ public:
         //---operators
         listIterator& operator=(const listIterator& other)
         {
-            delete pos;
+            if(pos) delete pos;
             copy_list(other.pos,pos);
             return *this;
         }
             //accessor/mutators
         T& operator*() const{
+            assert(pos);
+
             return pos->_item;
         }
 
             //increment/decrement
         listIterator& operator++(){
-            cout << "++ fired" << endl;
+            assert(pos);
+
             pos = pos->_next;
             return *this;
         }     //prefix
         listIterator operator ++(int){
+            assert(pos);
+
             listIterator oldVal = *this;
             pos = pos->_next;
             return oldVal;
@@ -102,13 +89,24 @@ public:
         friend class List;
     };
 
-    listIterator begin(){
-        cout << "begin fired" << endl;
+    listIterator begin()
+    {
+        /*
+         * Pre-condition:
+         * Post-condition:
+         * Purpose: return an iterator instance that points to
+         *  the head of list
+         */
         return listIterator(headPtr);
     }
 
     listIterator end()
     {
+        /*
+         * Pre-condition:
+         * Post-condition:
+         * Purpose: return an iterator instance that points to null
+         */
         return listIterator();
     }
 
@@ -116,5 +114,84 @@ public:
 private:
     node<T>* headPtr;
 };
+
+
+
+//=========
+//=========IMPLEMENTATION===========
+//                       ===========
+
+
+
+template<class T>
+List<T>::List(){
+    init_head(headPtr);
+}
+
+template<class T>
+List<T>::~List(){delete_all(headPtr);}
+
+template<class T>
+List<T>::List(const List<T>& other) {
+    copy_list(other.headPtr, headPtr);
+}
+
+template<class T>
+void List<T>::insert(T _item)
+{
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: insert at head
+     */
+    insert_head(headPtr, _item);
+}
+
+
+template<class T>
+void List<T>::insert(node<T>*_node ,T _item)
+{
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose:insert after given node
+     */
+    insert_after(headPtr, _node, _item);
+}
+
+
+template<class T>
+T List<T>::remove()
+{
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: remove the head and return the ITEM */
+    return delete_head(headPtr);
+}
+
+template<class T>
+node<T>*  List<T>::find(T _item){
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose: find item(first occurance)
+     */
+    return search(headPtr,_item);
+}
+
+template<class T>
+int List<T>::count()
+{
+    /*
+     * Pre-condition:
+     * Post-condition:
+     * Purpose:list size
+     */
+    return size(headPtr);
+}
+
+
+
 
 #endif // LIST_H
