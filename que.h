@@ -19,10 +19,10 @@ public:
 
 
     //-----METHODS
-    bool empty();
-    void push(T item);
-    T pop();
-    T front();
+    bool empty();   // whether que is empty
+    void push(T item);  //enque
+    T pop();    //deque
+    T front();  //return first item in que
 
 
     //-----OPERATORS
@@ -38,13 +38,10 @@ public:
     }
 
 
-private:
+//private:
     node<T>* _head;
     node<T>* _tail;
 };
-
-
-
 
 
 
@@ -65,13 +62,13 @@ Que<T>::~Que(){
 template <class T>
 Que<T>::Que(const Que<T>& other)
 {
+    //default behavior when other list is empty:
     if(!other._head){
         init_head(_head);
         _tail = _head;
     }
-    else{
+    else
         _tail = copy_list(other._head, _head);
-    }
 }
 
 
@@ -84,6 +81,8 @@ void Que<T>::push(T item)
 template <class T>
 T Que<T>::pop()
 {   //remove the head
+    if(_head == _tail)
+        _tail = NULL;
     return delete_head(_head);
 }
 

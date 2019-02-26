@@ -71,8 +71,6 @@ node<T>* copy_list(const node<T>* head, node<T>* & cpy)
         return 0;
     }
 
-
-
     node<T>* last;
     recurs_cpy(head,cpy,last);
     return last;
@@ -119,10 +117,6 @@ int size(node<T>* headPtr)
     return counter;
 }
 
-
-
-
-//==========50% TESTED=============
 
 template <class T>
 node<T>* init_head(node<T>* &head)
@@ -178,15 +172,17 @@ T delete_head(node<T>* &head)
     assert(head);
 
     T item = head->_item;
+//    delete head;
     node<T>* temp_ptr = head;
     head = head->_next;
     delete temp_ptr;
+    temp_ptr = NULL;
     return item;
 }
 
 
 template <class T>
-node<T>* insert_after(node<T>* &head, node<T>* after, const T& item)
+node<T>*& insert_after(node<T>* &head, node<T>* after, const T& item)
 {
     /*
      * Pre-condition:
@@ -207,7 +203,7 @@ node<T>* insert_after(node<T>* &head, node<T>* after, const T& item)
 }
 
 template <class T>
-node<T>* insert_head(node<T>* &head, T item)
+node<T>*& insert_head(node<T>* &head, T item)
 {
     /*
      * Pre-condition:
@@ -248,11 +244,6 @@ ostream& print_list(const node<T>* head, ostream& outs=cout)
     return outs;
 }
 
-
-
-
-
-//==========TESTED=============
 
 
 #endif // NODE_H

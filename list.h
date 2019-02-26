@@ -61,14 +61,14 @@ public:
             copy_list(other.pos,pos);
             return *this;
         }
-            //accessor/mutators
+        //accessor/mutators
         T& operator*() const{
             assert(pos);
 
             return pos->_item;
         }
 
-            //increment/decrement
+        //increment/decrement
         listIterator& operator++(){
             assert(pos);
 
@@ -82,7 +82,8 @@ public:
             pos = pos->_next;
             return oldVal;
         }  //postfix
-            //comparison
+
+        //comparison
         bool operator==(const listIterator& other) const{
             return pos == other.pos;
         }
@@ -131,15 +132,23 @@ private:
 
 
 template<class T>
-List<T>::List(){
+List<T>::List()
+{
+    //default constructor
     init_head(headPtr);
 }
 
 template<class T>
-List<T>::~List(){delete_all(headPtr);}
+List<T>::~List()
+{
+    //destructor
+    delete_all(headPtr);
+}
 
 template<class T>
-List<T>::List(const List<T>& other) {
+List<T>::List(const List<T>& other)
+{
+    //copy constructor
     copy_list(other.headPtr, headPtr);
 }
 

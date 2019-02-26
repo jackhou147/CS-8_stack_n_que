@@ -16,10 +16,10 @@ public:
     Stack(const Stack<T>& other):_stack(other._stack){}
 
     //-----METHODS
-    void push(T item);
-    T pop();
-    T top();
-    bool empty();
+    void push(T item);  //push to top
+    T pop();    //pop the first item out of stack and return it
+    T top();    //return the first item
+    bool empty();   //whether stack is empty
 
     //-----OPERATORS
     friend ostream& operator << (ostream& outs, const Stack& s)
@@ -33,7 +33,7 @@ public:
         /*
          * Pre-condition:
          * Post-condition:
-         * Purpose:
+         * Purpose: assignment operator
          */
         _stack = rhs._stack;
         return *this;
@@ -54,7 +54,7 @@ void Stack<T>::push(T item)
     /*
      * Pre-condition:
      * Post-condition:
-     * Purpose:
+     * Purpose: insert item at top
      */
     _stack.insert(item);
 }
@@ -65,7 +65,7 @@ T Stack<T>::pop()
     /*
      * Pre-condition:
      * Post-condition:
-     * Purpose:
+     * Purpose: pop first item and return it
      */
     return _stack.remove();
 }
@@ -76,7 +76,7 @@ T Stack<T>::top()
     /*
      * Pre-condition:
      * Post-condition:
-     * Purpose:
+     * Purpose: return first item
      */
     return *(_stack.begin());
 }
@@ -87,7 +87,7 @@ bool Stack<T>::empty()
     /*
      * Pre-condition:
      * Post-condition:
-     * Purpose:
+     * Purpose: return true if empty stack; false otherwise
      */
     return (_stack.count() == 0);
 }

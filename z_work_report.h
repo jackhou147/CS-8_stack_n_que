@@ -29,11 +29,18 @@
         item, depending on data type(eg. an integer node has a default item of 0).
         This is expected behavior, not a bug. To change this, modify the default
         constructor of node class in node.h line 18.
+        3.Commenting should be concise, not redundant.Thus, pre-condition and post-condition
+        of certain functions are not added when they are self-explanatory enough.
 
 
     Reflections:
-        I consider this project to be relatively well done. In the future, asserts
-        should be considered to be replaced with custom exception classes.
+        I consider this project to be relatively well done. A couple things
+        worth mentioning are as following:
+         1. In the future, asserts should be replaced with custom exception classes.
+         2.low level functions(those located in file node.h) should not
+         be responsible for error handling; high level functions or classes
+         should be responsible for avoiding or handling the errors and edge cases when
+         calling low level functions.
 */
 
 

@@ -12,4 +12,5 @@ HEADERS += \
     stack.h \
     notations.h \
     z_work_report.h \
-    z_output.h
+    z_output.h \
+    additionaltesting.h
